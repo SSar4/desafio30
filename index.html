@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='css.css'>
+</head>
+
+<body>
+    <section>
+        <h1 data-js="nomeFantasia"></h1>
+    </section>
+    <section class="container wrap">
+        <div class="item">
+            <p>Imagem</p>
+            <input type="text" data-js="img"/>
+        </div>
+        <div class="item">
+            <p>Marca/Modelo</p>
+            <input type="text" data-js="marca"/>
+        </div>
+        <div class="item">
+            <p>Ano</p>
+            <input type="text" data-js="ano"/>
+        </div>
+        <div class="item">
+            <p>Placa</p>
+            <input type="text" data-js="placa"/>
+        </div>
+        <div class="item">
+            <p>Cor</p>
+            <input type="text" data-js="cor"/>
+        </div>
+    </section>
+    <input type="submit" value="Enviar" class="enviar" data-js="enviar"/>
+    
+    <div class="grid">
+        <table border="0" data-js="table">
+            <caption>Lista de veiculos</caption>
+            <tr>
+                <th>Image</th>
+                <th>Modelo</th>
+                <th>Ano</th>
+                <th>Placa</th>
+                <th>Cor</th>
+            </tr>
+        </table>
+    </div>
+    <script src='DOM.js'></script>
+    <script src='main.js'></script>
+</body>
+
+</html>
