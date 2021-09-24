@@ -71,15 +71,7 @@
         createComponente($img.element[0].value,$marca.element[0].value,$ano.element[0].value,$placa.element[0].value,$cor.element[0].value);
     };
 
-    function removerCar() {
-      var newReq = new XMLHttpRequest();
-     newReq.open('delete','http://localhost:3000/');
-     newReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-     newReq.send('plate='+placa.textContent);
-
-   console.log($table.get()[0])
-   $table.get()[0].removeChild(childTR);
-    }
+    
       
       function createComponente(img,marca,ano,placa,cor) {
 
@@ -107,7 +99,16 @@
         childTR.appendChild(childTDCor);
         childTR.appendChild(colExcluir);
   
-        colExcluir.addEventListener('click',removerCar,false)
+        colExcluir.addEventListener('click',function () {
+         var newReq = new XMLHttpRequest();
+         newReq.open('delete','http://localhost:3000/');
+         newReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+         newReq.send('plate='+placa.textContent);
+     
+         console.log($table.get()[0])
+         $table.get()[0].removeChild(childTR);
+
+        },false)
         
         childTDImage.appendChild(urlImage);
         childTDmodelo.appendChild(modelo);
@@ -118,6 +119,8 @@
         fragment.appendChild(childTR);
   
         document.querySelector('table').appendChild(fragment);
+
+
       };
   
     company();
