@@ -10,6 +10,7 @@
       var $placa = new DOM('[data-js="placa"]');
       var $cor = new DOM('[data-js="cor"]');
       var $btnEnviar = new DOM('[data-js="enviar"]');
+      var $table = new DOM('[data-js="table"]')
 
       $btnEnviar.on("click",registerCar , false);
   
@@ -28,8 +29,10 @@
       };
     
       function company() {
-       const ajax = request('get', 'company.json','');
-        showCompany(ajax);
+       var ajax = new XMLHttpRequest();
+       ajax.open('get','company.json');
+       ajax.send();
+       showCompany(ajax);
       };
 
       const showCompany = function showCompany(ajax) {
@@ -42,15 +45,11 @@
       };
 
       function getCar() {
-        request('get', 'http://localhost:3000/','');
-        showCars(newReq)
-      };
-
-      function request(method,url,data) {
         var newReq = new XMLHttpRequest();
-        newReq.open(method,url);
+        newReq.open('get', 'http://localhost:3000/');
         newReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        newReq.send(data)
+        newReq.send();
+        showCars(newReq);
       };
 
       const showCars = function (newReq) {
@@ -65,11 +64,22 @@
       };
 
       function registerCar(){
-        request('post','http://localhost:3000/',`image=${$img.element[0].value}&brandModel=${$marca.element[0].value}&year=${$ano.element[0].value}&plate=${$placa.element[0].value}&color=${$cor.element[0].value}`)
+        var newReq = new XMLHttpRequest();
+        newReq.open('post','http://localhost:3000/');
+        newReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        newReq.send(`image=${$img.element[0].value}&brandModel=${$marca.element[0].value}&year=${$ano.element[0].value}&plate=${$placa.element[0].value}&color=${$cor.element[0].value}`);
         createComponente($img.element[0].value,$marca.element[0].value,$ano.element[0].value,$placa.element[0].value,$cor.element[0].value);
     };
 
-      
+    function removerCar() {
+      var newReq = new XMLHttpRequest();
+     newReq.open('delete','http://localhost:3000/');
+     newReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+     newReq.send('plate='+placa.textContent);
+
+   console.log($table.get()[0])
+   $table.get()[0].removeChild(childTR);
+    }
       
       function createComponente(img,marca,ano,placa,cor) {
 
@@ -97,9 +107,7 @@
         childTR.appendChild(childTDCor);
         childTR.appendChild(colExcluir);
   
-        colExcluir.addEventListener('click',function () {
-          document.querySelector('table').removeChild(childTR)
-        },false)
+        colExcluir.addEventListener('click',removerCar,false)
         
         childTDImage.appendChild(urlImage);
         childTDmodelo.appendChild(modelo);
